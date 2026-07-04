@@ -26,6 +26,11 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t dockerlab-app ./app
+        
+      - name: Test
+        run: |
+          echo "Running tests..."
+          test -f app/server_error.js
 
       - name: Show Docker Images
         run: docker images
