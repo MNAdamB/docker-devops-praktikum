@@ -16,7 +16,7 @@ client.connect()
 .catch(err => console.log(err));
 
 app.get("/", (req, res) => {
-    res.send("<h1>Hello DevOps!</h1><h2>Latihan B Docker</h2>");
+    res.send("<h1>Hello DevOps!</h1><h2>CI/CD test Latihan B Docker</h2>");
 });
 
 app.get("/db", async (req, res) => {
