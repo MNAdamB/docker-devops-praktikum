@@ -1,4 +1,4 @@
-name: Docker CI
+name: Docker DevOps CI
 
 on:
   push:
@@ -11,26 +11,33 @@ on:
 
 jobs:
 
-  build:
+  build-test:
 
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
-      - name: Build Docker Image
-        run: |
-          docker build -t dockerlab-app ./app
-        
-      - name: Test
-        run: |
-          echo "Running tests..."
-          test -f app/server.js
+    - name: Install Dependencies
+      working-directory: ./app
+      run: npm install
 
-      - name: Show Docker Images
-        run: docker images
+    - name: Check JavaScript Syntax
+      working-directory: ./app
+      run: node --check server.js
+
+    - name: Build Docker Image
+      run: docker build -t dockerlab-app ./app
+
+    - name: Show Docker Images
+      run: docker images
+
+    - name: Pipeline Success
+      run: echo "CI Pipeline Finished Successfully"
