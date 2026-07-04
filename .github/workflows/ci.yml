@@ -30,7 +30,7 @@ jobs:
       - name: Test
         run: |
           echo "Running tests..."
-          test -f app/server_error.js
+          test -f app/server.js
 
       - name: Show Docker Images
         run: docker images
